@@ -33,7 +33,9 @@ Note:
 
 1. New Workload:
     
-    ```RDBMSWorkload```
+    ```RDBMSWorkload
+    ```
+
 
   RDBMSWorkload is a generic workload who supports multiple table setups, with
   a high degree of customization. It uses an XML file to describe the database
