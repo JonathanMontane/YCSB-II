@@ -33,7 +33,8 @@ Note:
 
 1. New Workload:
     
-    ```RDBMSWorkload
+    ```sh
+    RDBMSWorkload
     ```
 
 
