@@ -1,23 +1,10 @@
-Yahoo! Cloud System Benchmark (YCSB)
+Yahoo! Cloud System Benchmark II (YCSB)
 ====================================
-[![Build Status](https://travis-ci.org/brianfrankcooper/YCSB.png?branch=master)](https://travis-ci.org/brianfrankcooper/YCSB)
-
-Links
------
-http://wiki.github.com/brianfrankcooper/YCSB/  
-http://research.yahoo.com/Web_Information_Management/YCSB/  
-ycsb-users@yahoogroups.com  
 
 Getting Started
 ---------------
 
-1. Download the latest release of YCSB:
-
-    ```sh
-    wget https://github.com/downloads/brianfrankcooper/YCSB/ycsb-0.1.4.tar.gz
-    tar xfvz ycsb-0.1.4
-    cd ycsb-0.1.4
-    ```
+1. Clone the repository
     
 2. Set up a database to benchmark. There is a README file under each binding 
    directory.
@@ -36,3 +23,47 @@ Getting Started
 
   See https://github.com/brianfrankcooper/YCSB/wiki/Core-Properties for 
   the list of available workload properties.
+
+Improvement in YCSB II
+---------------
+
+Note:
+  YCSB II is backward-compatible with YCSB I and supposedly any extension
+  made on it.
+
+1. New Workload:
+    
+    ```RDBMSWorkload```
+
+  RDBMSWorkload is a generic workload who supports multiple table setups, with
+  a high degree of customization. It uses an XML file to describe the database
+  and the way it should be populated by the client.
+
+  found in core/src/com/yahoo/ycsb/extensions/rdbms
+
+2. Introduction of the Behavior concept:
+  
+  The ClientThread class that was a private class of the Client class has been
+  made public and abstract. Class extending the ClientThread object define
+  the behavior of the client when accessing the database. For instance, the 
+  behavior of sequential queries can be implemented. This has the benefits of
+  allowing reuse of the behaviors between workloads, and to allow a workload
+  to support multiple behaviors.
+
+  found in core/src/com/yahoo/ycsb/behaviors
+
+3. New Binding for HBase:
+
+  Many bindings do not allow for cloud serving system specific customizations,
+  such as the use of multiple column families for HBase. Additionally, the 
+  abstract DB binding had no way to communicate with the workload on details
+  of the implementation. We created an additional DB binding for HBase that
+  supports multiple column families.
+
+  By default, this Hbase binding is disabled, and the previous binding is
+  enabled.
+
+4. Consistency Benchmarking:
+
+  Basic behaviors for consistency and delta-atomicity benchmarking have been 
+  defined.
